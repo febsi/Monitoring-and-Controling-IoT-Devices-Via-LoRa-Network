@@ -1,0 +1,724 @@
+[
+    {
+        "id": "614e82537cd375e9",
+        "type": "tab",
+        "label": "Flow 3",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "cac7ca32ab9d9c59",
+        "type": "mqtt in",
+        "z": "614e82537cd375e9",
+        "name": "",
+        "topic": "Data",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "b168b586cf8cfc79",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 70,
+        "y": 280,
+        "wires": [
+            [
+                "874eaaa5900b4e72"
+            ]
+        ]
+    },
+    {
+        "id": "e35c71421e21a027",
+        "type": "debug",
+        "z": "614e82537cd375e9",
+        "name": "debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 630,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "4bdacc6328c14d6b",
+        "type": "function",
+        "z": "614e82537cd375e9",
+        "name": "Node_1",
+        "func": "let Data = {\n        ID2 : msg.payload.ID2,\n        Value_FL2 : parseFloat(msg.payload.Value_FL2),\n        Value_Ldr2 : parseFloat(msg.payload.Value_Ldr2),\n        Value_humi2 : parseFloat(msg.payload.Value_humi2),\n        Value_temp2 : parseFloat(msg.payload.Value_temp2)\n};\n\nreturn {\n    payload: Data\n};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 140,
+        "wires": [
+            [
+                "e35c71421e21a027",
+                "9d1b6c635e68afb0",
+                "c4ea38ecd1f7afb6",
+                "47796929c9b257c1",
+                "95f75cf3a69d3f07",
+                "c21e22c97ed57bc5"
+            ]
+        ]
+    },
+    {
+        "id": "9d1b6c635e68afb0",
+        "type": "influxdb out",
+        "z": "614e82537cd375e9",
+        "influxdb": "f7a33b434355e648",
+        "name": "Node_2",
+        "measurement": "Test1",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "organisation",
+        "bucket": "bucket",
+        "x": 640,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "874eaaa5900b4e72",
+        "type": "json",
+        "z": "614e82537cd375e9",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 210,
+        "y": 280,
+        "wires": [
+            [
+                "4bdacc6328c14d6b",
+                "b509344992151856"
+            ]
+        ]
+    },
+    {
+        "id": "d4d4be0444d0d203",
+        "type": "ui_gauge",
+        "z": "614e82537cd375e9",
+        "name": "LDR ",
+        "group": "296e913cb3c3ac45",
+        "order": 0,
+        "width": "6",
+        "height": "6",
+        "gtype": "gage",
+        "title": "Light intensity",
+        "label": "Lux",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "1000",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 810,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "47796929c9b257c1",
+        "type": "change",
+        "z": "614e82537cd375e9",
+        "name": "FLAME",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.Value_FL2",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 220,
+        "wires": [
+            [
+                "85905483a5def7af"
+            ]
+        ]
+    },
+    {
+        "id": "85905483a5def7af",
+        "type": "ui_text",
+        "z": "614e82537cd375e9",
+        "group": "86b9f61b37318a43",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "Flame Sensor",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "x": 840,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "c4ea38ecd1f7afb6",
+        "type": "change",
+        "z": "614e82537cd375e9",
+        "name": "LDR",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.Value_Ldr2",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 630,
+        "y": 40,
+        "wires": [
+            [
+                "d4d4be0444d0d203"
+            ]
+        ]
+    },
+    {
+        "id": "27d23fa03eade0fd",
+        "type": "debug",
+        "z": "614e82537cd375e9",
+        "name": "debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 630,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "b509344992151856",
+        "type": "function",
+        "z": "614e82537cd375e9",
+        "name": "Node_2",
+        "func": "\nlet Data = {\n        ID : msg.payload.ID,\n        Value_FL : parseFloat(msg.payload.Value_FL),\n        Value_Ldr : parseFloat(msg.payload.Value_Ldr),\n        Value_humi : parseFloat(msg.payload.Value_humi),\n        Value_temp : parseFloat(msg.payload.Value_temp)\n};\n\nreturn {\n    payload: Data\n};\n\n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 500,
+        "wires": [
+            [
+                "27d23fa03eade0fd",
+                "ac806d60ecfa5957",
+                "2a50bd2d16300e98",
+                "f2d4fce2b6e7bb05",
+                "84f50adb222b03bd",
+                "837e76c88a60c106"
+            ]
+        ]
+    },
+    {
+        "id": "ac806d60ecfa5957",
+        "type": "influxdb out",
+        "z": "614e82537cd375e9",
+        "influxdb": "f7a33b434355e648",
+        "name": "Node_1",
+        "measurement": "Test2",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "organisation",
+        "bucket": "bucket",
+        "x": 640,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "6e9ace43210d7d57",
+        "type": "ui_gauge",
+        "z": "614e82537cd375e9",
+        "name": "LDR ",
+        "group": "e054e24d6428c79a",
+        "order": 0,
+        "width": "6",
+        "height": "6",
+        "gtype": "gage",
+        "title": "Light intensity",
+        "label": "Lux",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "1000",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 810,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "f2d4fce2b6e7bb05",
+        "type": "change",
+        "z": "614e82537cd375e9",
+        "name": "FLAME",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.Value_FL",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 580,
+        "wires": [
+            [
+                "a10953febf852806"
+            ]
+        ]
+    },
+    {
+        "id": "a10953febf852806",
+        "type": "ui_text",
+        "z": "614e82537cd375e9",
+        "group": "5321123bb0409266",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "Flame Sensor",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "x": 840,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "2a50bd2d16300e98",
+        "type": "change",
+        "z": "614e82537cd375e9",
+        "name": "LDR",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.Value_Ldr",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 630,
+        "y": 400,
+        "wires": [
+            [
+                "6e9ace43210d7d57"
+            ]
+        ]
+    },
+    {
+        "id": "8056a371e1c5f479",
+        "type": "ui_gauge",
+        "z": "614e82537cd375e9",
+        "name": "humi",
+        "group": "2970a801b3cee53b",
+        "order": 0,
+        "width": "6",
+        "height": "6",
+        "gtype": "gage",
+        "title": "Humidity",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 810,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "84f50adb222b03bd",
+        "type": "change",
+        "z": "614e82537cd375e9",
+        "name": "Humi",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.Value_humi",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 630,
+        "y": 460,
+        "wires": [
+            [
+                "8056a371e1c5f479"
+            ]
+        ]
+    },
+    {
+        "id": "837e76c88a60c106",
+        "type": "change",
+        "z": "614e82537cd375e9",
+        "name": "Temp",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.Value_temp",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 630,
+        "y": 520,
+        "wires": [
+            [
+                "d8421030db852134"
+            ]
+        ]
+    },
+    {
+        "id": "af2272e7d61247fd",
+        "type": "ui_gauge",
+        "z": "614e82537cd375e9",
+        "name": "humi",
+        "group": "7cf3aefa3b3b1577",
+        "order": 0,
+        "width": "6",
+        "height": "6",
+        "gtype": "gage",
+        "title": "Humidity",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 810,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "95f75cf3a69d3f07",
+        "type": "change",
+        "z": "614e82537cd375e9",
+        "name": "Humi",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.Value_humi2",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 630,
+        "y": 100,
+        "wires": [
+            [
+                "af2272e7d61247fd"
+            ]
+        ]
+    },
+    {
+        "id": "c21e22c97ed57bc5",
+        "type": "change",
+        "z": "614e82537cd375e9",
+        "name": "Temp",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.Value_temp2",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 630,
+        "y": 160,
+        "wires": [
+            [
+                "c7fbd05ea719ae03"
+            ]
+        ]
+    },
+    {
+        "id": "c7fbd05ea719ae03",
+        "type": "ui_gauge",
+        "z": "614e82537cd375e9",
+        "name": "temp",
+        "group": "4a2ce8ab37b7035d",
+        "order": 0,
+        "width": "6",
+        "height": "6",
+        "gtype": "gage",
+        "title": "Temperature",
+        "label": "°c",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 810,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "d8421030db852134",
+        "type": "ui_gauge",
+        "z": "614e82537cd375e9",
+        "name": "temp",
+        "group": "7a559849143457fd",
+        "order": 0,
+        "width": "6",
+        "height": "6",
+        "gtype": "gage",
+        "title": "Temperature",
+        "label": "°c",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 810,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "b168b586cf8cfc79",
+        "type": "mqtt-broker",
+        "name": "emqx",
+        "broker": "192.168.43.116",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "5",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "f7a33b434355e648",
+        "type": "influxdb",
+        "hostname": "localhost",
+        "port": "8086",
+        "protocol": "http",
+        "database": "TA3",
+        "name": "influxdb",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "1.x",
+        "url": "http://localhost:8086",
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "296e913cb3c3ac45",
+        "type": "ui_group",
+        "name": "LDR sensor",
+        "tab": "52dd77ceec7b32d3",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "86b9f61b37318a43",
+        "type": "ui_group",
+        "name": "Flame sensor",
+        "tab": "52dd77ceec7b32d3",
+        "order": 4,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "e054e24d6428c79a",
+        "type": "ui_group",
+        "name": "LDR",
+        "tab": "e2631f6bce618cfe",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "5321123bb0409266",
+        "type": "ui_group",
+        "name": "Flame",
+        "tab": "e2631f6bce618cfe",
+        "order": 4,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "2970a801b3cee53b",
+        "type": "ui_group",
+        "name": "DHT11(H)",
+        "tab": "e2631f6bce618cfe",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "7cf3aefa3b3b1577",
+        "type": "ui_group",
+        "name": "DHT11(H)",
+        "tab": "52dd77ceec7b32d3",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "4a2ce8ab37b7035d",
+        "type": "ui_group",
+        "name": "DHT11(T)",
+        "tab": "52dd77ceec7b32d3",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "7a559849143457fd",
+        "type": "ui_group",
+        "name": "DHT11(T)",
+        "tab": "e2631f6bce618cfe",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "52dd77ceec7b32d3",
+        "type": "ui_tab",
+        "name": "Node 1",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "e2631f6bce618cfe",
+        "type": "ui_tab",
+        "name": "Node 2",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    }
+]

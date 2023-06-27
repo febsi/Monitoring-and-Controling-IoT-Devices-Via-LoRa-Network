@@ -1,0 +1,307 @@
+[
+    {
+        "id": "c7588abcbc627a79",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "d4c3ecfa5883625c",
+        "type": "ui_switch",
+        "z": "c7588abcbc627a79",
+        "name": "",
+        "label": "Fan",
+        "tooltip": "",
+        "group": "23483cdcbd44555a",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "false",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "true",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 210,
+        "y": 160,
+        "wires": [
+            [
+                "dbe5eaa7777f26fc"
+            ]
+        ]
+    },
+    {
+        "id": "b230e83a90f2fa43",
+        "type": "mqtt out",
+        "z": "c7588abcbc627a79",
+        "name": "",
+        "topic": "rel1",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "b168b586cf8cfc79",
+        "x": 530,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "dbe5eaa7777f26fc",
+        "type": "function",
+        "z": "c7588abcbc627a79",
+        "name": "",
+        "func": "// Ambil nilai switch dari pesan yang diterima\nvar switchValue = msg.payload;\n\n// Buat pesan MQTT berdasarkan nilai switch\nvar data = \"\";\nif (switchValue === true) {\n  data = \"OFF3\";\n} else {\n  data = \"ON3\";\n}\n\n// Kirim pesan MQTT ke topik \"relay\" dengan payload sesuai pesan MQTT yang dibuat\nnode.send({topic: \"rel1\", payload: data});\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 200,
+        "wires": [
+            [
+                "b230e83a90f2fa43"
+            ]
+        ]
+    },
+    {
+        "id": "73f68012bdb56921",
+        "type": "mqtt in",
+        "z": "c7588abcbc627a79",
+        "name": "",
+        "topic": "rel1",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "b168b586cf8cfc79",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 230,
+        "y": 60,
+        "wires": [
+            [
+                "eb74e59e94804d1f"
+            ]
+        ]
+    },
+    {
+        "id": "eb74e59e94804d1f",
+        "type": "debug",
+        "z": "c7588abcbc627a79",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 450,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "ab3606c5ef9654e1",
+        "type": "ui_switch",
+        "z": "c7588abcbc627a79",
+        "name": "",
+        "label": "Water pump",
+        "tooltip": "",
+        "group": "23483cdcbd44555a",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "false",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "true",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 230,
+        "y": 280,
+        "wires": [
+            [
+                "a8ef712c938ff161"
+            ]
+        ]
+    },
+    {
+        "id": "c2b8ba7b86dd2025",
+        "type": "mqtt out",
+        "z": "c7588abcbc627a79",
+        "name": "",
+        "topic": "rel1",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "b168b586cf8cfc79",
+        "x": 530,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "a8ef712c938ff161",
+        "type": "function",
+        "z": "c7588abcbc627a79",
+        "name": "",
+        "func": "// Ambil nilai switch dari pesan yang diterima\nvar switchValue = msg.payload;\n\n// Buat pesan MQTT berdasarkan nilai switch\nvar data = \"\";\nif (switchValue === true) {\n  data = \"OFF4\";\n} else {\n  data = \"ON4\";\n}\n\n// Kirim pesan MQTT ke topik \"relay\" dengan payload sesuai pesan MQTT yang dibuat\nnode.send({topic: \"rel1\", payload: data});\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 320,
+        "wires": [
+            [
+                "c2b8ba7b86dd2025"
+            ]
+        ]
+    },
+    {
+        "id": "9fe99c1ebb9f9e2e",
+        "type": "mqtt out",
+        "z": "c7588abcbc627a79",
+        "name": "",
+        "topic": "rel1",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "b168b586cf8cfc79",
+        "x": 530,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "528a4a52a7d5cd5e",
+        "type": "function",
+        "z": "c7588abcbc627a79",
+        "name": "",
+        "func": "// Ambil nilai switch dari pesan yang diterima\nvar switchValue = msg.payload;\n\n// Buat pesan MQTT berdasarkan nilai switch\nvar data = \"\";\nif (switchValue === true) {\n  data = \"OFF5\";\n} else {\n  data = \"ON5\";\n}\n\n// Kirim pesan MQTT ke topik \"relay\" dengan payload sesuai pesan MQTT yang dibuat\nnode.send({topic: \"rel1\", payload: data});\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 420,
+        "wires": [
+            [
+                "9fe99c1ebb9f9e2e"
+            ]
+        ]
+    },
+    {
+        "id": "3d2f371e4617f391",
+        "type": "ui_switch",
+        "z": "c7588abcbc627a79",
+        "name": "",
+        "label": "Light",
+        "tooltip": "",
+        "group": "23483cdcbd44555a",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "false",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "true",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 190,
+        "y": 400,
+        "wires": [
+            [
+                "528a4a52a7d5cd5e"
+            ]
+        ]
+    },
+    {
+        "id": "23483cdcbd44555a",
+        "type": "ui_group",
+        "name": "Node 2 Actuator",
+        "tab": "e2631f6bce618cfe",
+        "order": 5,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "b168b586cf8cfc79",
+        "type": "mqtt-broker",
+        "name": "emqx",
+        "broker": "192.168.43.116",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "5",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "e2631f6bce618cfe",
+        "type": "ui_tab",
+        "name": "Node 2",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    }
+]
